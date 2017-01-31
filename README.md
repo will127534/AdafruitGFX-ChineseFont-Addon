@@ -12,11 +12,16 @@ http://iswsa.acm.org/mphf/mphf.py
 ## Usage
 以weather.txt作為範例，這是從CWB Opendata下載下來的說明檔案的中文字  
 首先是將weather.txt當中取出獨立的中文字  
+
 ```python .\discrete_utf8.py .\weather.txt ```
-再來就是計算MPH與輸出字型檔案
+
+再來就是計算MPH與輸出字型檔案  
+
 ```python .\hash.py ```
+
 輸出的檔案是 userfont.h，搬移到Adafruit GFX library底下的\Fonts  
-然後再Arduino code裡面使用方式如下:
+然後再Arduino code裡面使用方式如下:  
+
 ```Arudino 
   display.begin();
   display.setFont(&user_fontGFXfont);  //setup font
