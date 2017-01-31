@@ -25,6 +25,7 @@ http://iswsa.acm.org/mphf/mphf.py
 然後再Arduino code裡面使用方式如下:  
 
 ```Arudino 
+  #include <Fonts/userfont.h>
   display.begin();
   display.setFont(&user_fontGFXfont);  //setup font
   display.set_lookup(lookup);          //setup font hash function
