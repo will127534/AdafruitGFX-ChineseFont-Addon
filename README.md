@@ -4,8 +4,9 @@ A modified version of Adafruit GFX for 正體中文字型檔案
 ## How it works
 由於中文字體對於嵌入式硬體(MCU)來說，算是有點大。對於點陣字型來說通常都要個~1Mb，除非用外掛Flash的方式儲存。所以要使用這個軟體必須先定義需要的字，再算出來hash function(UTF-8 to array index)，同時從字型檔案當中取出點陣圖。  
 另外因為目前Arduino常見的一個Graphic library是Adafruit GFX，所以再將Hash function與點陣圖檔都輸出成Adafruit GFX font的格式方便使用，不過還是需要修改Adafruit GFX才能支援直接對UTF-8的輸出  
-字型檔案格式是倚天中文系統的字型檔，但是是由國喬中文系統點陣字型檔轉檔過來的，連結如下:http://ftp.isu.edu.tw/pub/Windows/Chinese/font/bmp_font/kc_to_eten/  
-目前設定的點陣大小是24x24，可能晚點再來寫成可以自訂的模式。
+字型檔案格式是倚天中文系統的字型檔，但是是由國喬中文系統點陣字型檔轉檔過來的，連結如下: http://ftp.isu.edu.tw/pub/Windows/Chinese/font/bmp_font/kc_to_eten/ 
+
+目前設定的點陣大小是24x24，可能晚點再來寫成可以自訂的模式。  
 而(Minimal) Perfect Hash Functions Generator的範例是來自於
 http://iswsa.acm.org/mphf/mphf.py
 
