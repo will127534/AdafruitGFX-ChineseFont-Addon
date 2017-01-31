@@ -24,7 +24,7 @@ http://iswsa.acm.org/mphf/mphf.py
 輸出的檔案是 userfont.h，搬移到Adafruit GFX library底下的\Fonts  
 然後再Arduino code裡面使用方式如下:  
 
-```Arudino 
+```c 
   #include <Fonts/userfont.h>
   display.begin();
   display.setFont(&user_fontGFXfont);  //setup font
