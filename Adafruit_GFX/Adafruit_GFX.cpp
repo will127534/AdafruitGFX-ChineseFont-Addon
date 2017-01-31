@@ -526,26 +526,67 @@ void Adafruit_GFX::set_lookup(uint32_t (*func)(uint8_t*,int)){
 }
 
 size_t Adafruit_GFX::write(const char* c) {
-    // Custom font
     uint16_t i = 0;
     while(1){
       //Serial.println(c[i],HEX);
-      if(c[i]<128){
-          if(c[i] == 0){
+      if(c[i] == 0){
             return 1;
+      }
+
+      if(!gfxFont) { // 'Classic' built-in font
+          if(c[i] == '\n') {
+            cursor_y += textsize*8;
+            cursor_x  = 0;
+          } 
+          else if(c[i] == '\r') {
+            // skip em
+          } 
+          else {
+            if(wrap && ((cursor_x + textsize * 6) >= _width)) { // Heading off edge?
+              cursor_x  = 0;            // Reset x to zero
+              cursor_y += textsize * 8; // Advance y one line
+            }
+            drawChar(cursor_x, cursor_y, c[i], textcolor, textbgcolor, textsize);
+            cursor_x += textsize * 6;
           }
+          i ++;
+          continue;
+      }
+
+      if(c[i]<128){ //non UTF-8 Custom font
           if(c[i] == '\n') {
           cursor_x  = 0;
           cursor_y += (int16_t)textsize *
                       (uint8_t)pgm_read_byte(&gfxFont->yAdvance);
-          } 
+          }
+          else if(c[i] != '\r') {
+            uint8_t first = pgm_read_byte(&gfxFont->first);
+            if((c[i] >= first) && (c[i] <= (uint8_t)pgm_read_byte(&gfxFont->last))) {
+              uint8_t   c2    = c[i] - pgm_read_byte(&gfxFont->first);
+              GFXglyph *glyph = &(((GFXglyph *)pgm_read_pointer(&gfxFont->glyph))[c2]);
+              uint8_t   w     = pgm_read_byte(&glyph->width),
+                        h     = pgm_read_byte(&glyph->height);
+              if((w > 0) && (h > 0)) { // Is there an associated bitmap?
+                int16_t xo = (int8_t)pgm_read_byte(&glyph->xOffset); // sic
+                if(wrap && ((cursor_x + textsize * (xo + w)) >= _width)) {
+                  // Drawing character would go off right edge; wrap to new line
+                  cursor_x  = 0;
+                  cursor_y += (int16_t)textsize *
+                              (uint8_t)pgm_read_byte(&gfxFont->yAdvance);
+                }
+                drawChar(cursor_x, cursor_y, c[i], textcolor, textbgcolor, textsize);
+              }
+              cursor_x += pgm_read_byte(&glyph->xAdvance) * (int16_t)textsize;
+            }
+          }
           i++;
+          continue;
       }
       else{
         uint32_t c3 = (uint32_t)c[i]<<16 | (uint32_t)c[i+1]<<8 |(uint32_t)c[i+2];
         uint32_t c2 = lookup((uint8_t *)c+i,3);
         //Serial.println(c3,HEX);
-        //Serial.println(c2);
+       // Serial.println(c2);
         GFXglyph *glyph = &(((GFXglyph *)pgm_read_pointer(&gfxFont->glyph))[c2]);
         uint8_t   w     = pgm_read_byte(&glyph->width),
                   h     = pgm_read_byte(&glyph->height);
@@ -563,8 +604,12 @@ size_t Adafruit_GFX::write(const char* c) {
         i +=3;
       }
     }
-    
+
   return 1;
+}
+
+size_t Adafruit_GFX::write(const uint8_t *buffer, size_t size) {
+  return write((const char*)buffer);
 }
 
 // Draw a character

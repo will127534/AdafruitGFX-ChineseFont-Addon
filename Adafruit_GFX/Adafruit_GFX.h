@@ -77,6 +77,7 @@ class Adafruit_GFX : public Print {
   virtual void   write(uint8_t);
 #endif
   virtual size_t   write(const char*);
+  virtual size_t   write(const uint8_t *buffer, size_t size);
   void set_lookup(uint32_t (*lookup)(uint8_t*,int));
   int16_t height(void) const;
   int16_t width(void) const;
