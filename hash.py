@@ -1,19 +1,9 @@
-# (Minimal) Perfect Hash Functions Generator (key, value) value in this code is the key counter during reading but can be any number
-
-# implementing the MOS Algorithm II CACM92 , and Amjad M Daoud Thesis 1993 at VT; 
-# based on Steve Hanof implementation http://stevehanov.ca/blog/index.php?id=119.
-
-# Download as http://iswsa.acm.org/mphf/mphf.py
-
-# You need Python; runs linearly even on a Android phone; it runs without modifications at http://www.compileonline.com/execute_python_online.php
-
-# For minimal perfect hashing use:  size = len(dict)
-
 import sys
-
+from optparse import OptionParser
 import math
-font = open('stdfont.24f','rb')
+
 font_output = open('userfont.h','w')
+
 # first level simple hash ... used to disperse patterns using random d values
 
 def hash( d, str ):
@@ -34,29 +24,29 @@ def hash( d, str ):
 
 def isprime(x):
 
-	x = abs(int(x))
+    x = abs(int(x))
 
-	if x < 2:
+    if x < 2:
 
-		return "Less 2", False
+        return "Less 2", False
 
-	elif x == 2:
+    elif x == 2:
 
-		return True
+        return True
 
-	elif x % 2 == 0:
+    elif x % 2 == 0:
 
-		return False	
+        return False    
 
-	else:
+    else:
 
-		for n in range(3, int(x**0.5)+2, 2):
+        for n in range(3, int(x**0.5)+2, 2):
 
-			if x % n == 0:
+            if x % n == 0:
 
-				return False
+                return False
 
-		return True
+        return True
 
 def nextprime(x):
 
@@ -221,87 +211,175 @@ def lookup( g, V, key ):
     return V[hash(d, key) % len(V)]
 
 def print_hash_function(g,V):
-	font_output.write('#define V_size ' + str(len(V))+'\n')
-	font_output.write('#define g_size ' + str(len(g))+'\n')
-	font_output.write('const int g[] = {')
-	lenght = len(g)
-	for x in xrange(0,lenght-1):
-		font_output.write(str(g[x])+', ')
-		pass
-	font_output.write(str(g[lenght-1])+'};\n')
+    font_output.write('#define V_size ' + str(len(V))+'\n')
+    font_output.write('#define g_size ' + str(len(g))+'\n')
+    font_output.write('const int g[] = {')
+    lenght = len(g)
+    for x in xrange(0,lenght-1):
+        font_output.write(str(g[x])+', ')
+        pass
+    font_output.write(str(g[lenght-1])+'};\n')
 
 
-	font_output.write('const int V[] = {')
-	lenght = len(V)
-	for x in xrange(0,lenght-1):
-		if V[x] == None:
-			font_output.write('NULL, ')
-			pass
-		else:
-			font_output.write(str(V[x])+', ')
-		pass
-	font_output.write(str(V[lenght-1])+'};\n')
-	font_output.write('uint32_t hash(uint32_t d,uint8_t* str,int len){\n	if (d == 0)\n		d = 0x811C9DC5UL;\n	for (int i = 0; i < len; ++i)\n	{\n		d = d ^ (uint32_t)str[i] * 16777619 & 0xffffffff;\n	}\n	return d;\n}\nuint32_t lookup(uint8_t* str,int len){\n	unsigned long d = g[hash(0,str,len) % g_size];\n	if (d<0)\n		return V[-d-1];\n	return V[hash(d,str,len) % V_size];\n}\n')
+    font_output.write('const int V[] = {')
+    lenght = len(V)
+    for x in xrange(0,lenght-1):
+        if V[x] == None:
+            font_output.write('NULL, ')
+            pass
+        else:
+            font_output.write(str(V[x])+', ')
+        pass
+    font_output.write(str(V[lenght-1])+'};\n')
+    font_output.write('uint32_t hash(uint32_t d,uint8_t* str,int len){\n    if (d == 0)\n       d = 0x811C9DC5UL;\n for (int i = 0; i < len; ++i)\n {\n     d = d ^ (uint32_t)str[i] * 16777619 & 0xffffffff;\n }\n return d;\n}\nuint32_t lookup(uint8_t* str,int len){\n  unsigned long d = g[hash(0,str,len) % g_size];\n    if (d<0)\n      return V[-d-1];\n   return V[hash(d,str,len) % V_size]+95;\n}\n')
 
-	pass
-
-
-arraySize = 3*24
-def font_to_code(c):
-	font_output.write('const unsigned char user_font[]  = {')
-
-	for x in xrange(0,72):
-		font_output.write(hex(0x00)+', ')
-	font_output.write('\n')
-	length = 0
-	for x in c:
-		read_char(x)
-		length +=1
-		pass
-	font_output.seek(font_output.tell()-1)
-	font_output.write('};\n')
-	font_output.write('const GFXglyph user_fontGlyphs[]  = {\n')
-	font_output.write("{     0,  0,  0,  24,   0,   0 },\n")
-	for x in xrange(0,length):
-		font_output.write("{     %d,  24,  24,  24,   0,   0 },\n" % ((x+1)*72))
-		pass
-	font_output.seek(font_output.tell()-1)
-	font_output.write('};\n')
+    pass
 
 
-	font_output.write("const GFXfont user_fontGFXfont PROGMEM = {\n  (uint8_t  *)user_font,\n  (GFXglyph *)user_fontGlyphs,\n  0x00, 0xFFFFFFUL, 30};\n")
+def write_ascii(font_ASCII,size):
+    if size == 24:
+        arraySize = 48
+        BytePerline = 2
+        pass
+    if size == 15:
+        arraySize = 15
+        BytePerline = 1
+        pass
 
-	pass
+    for x in xrange(0x20,0x80):
 
-def read_char(c):
-    
+        if debug:
+            font_ASCII.seek(x*arraySize)
+
+            for y in xrange(0,size):
+                line = font_ASCII.read(BytePerline)
+                data = int(line.encode('hex'),16)
+                print bin(data)[2:].zfill(BytePerline*8)#[:-4]
+
+        font_ASCII.seek(x*arraySize)
+
+        for y in xrange(0,arraySize):
+            line = font_ASCII.read(1)
+            data = int(line.encode('hex'),16)
+            font_output.write(hex(data)+', ')
+        
+        font_output.write('\n')
+        pass
+    pass
+
+
+def font_to_code(c,size):
+
+    if size == 15:
+        font = open('font/stdfont.15f','rb')
+        font_ASCII = open('font/ascfntkc.15','rb')
+        arraySize = 30
+        BytePerline = 2
+        arraySize_ASCII = 15
+        pass
+    if size == 24:
+        font = open('font/stdfont.24f','rb')
+        font_ASCII = open('font/ascfntkc.24','rb')
+        arraySize = 72
+        BytePerline = 3
+        arraySize_ASCII = 48
+        pass
+
+    font_output.write('const unsigned char user_font[]  = {')
+
+    write_ascii(font_ASCII,size)
+
+    length = 0
+    for x in c:
+        read_char(x,font,size)
+        length +=1
+        pass
+    font_output.seek(font_output.tell()-1)
+    font_output.write('};\n')
+    font_output.write('const GFXglyph user_fontGlyphs[]  = {\n')
+
+    if size == 15:
+        width = 16
+        hight = 15
+        width_ASCII = 8
+        hight_ASCII = 15
+        halfwidth = 8
+        pass
+    if size == 24:
+        width = 24
+        hight = 24
+        width_ASCII = 16
+        hight_ASCII = 24
+        halfwidth = 12
+        pass
+
+    for x in xrange(0x20,0x80):
+        
+        font_output.write("{     %d,  %d,  %d,  %d,   0,   0 },\n" % ((x-0x20)*arraySize_ASCII,width_ASCII,hight_ASCII,halfwidth))
+        pass
+
+    for x in xrange(0,length):
+
+        font_output.write("{     %d,  %d,  %d,  %d,   0,   0 },\n" % ((x)*arraySize+(0x7E-0x20+2)*arraySize_ASCII,width,hight,width))
+        pass
+    font_output.seek(font_output.tell()-1)
+    font_output.write('};\n')
+
+
+    font_output.write("const GFXfont user_fontGFXfont PROGMEM = {\n  (uint8_t  *)user_font,\n  (GFXglyph *)user_fontGlyphs,\n  0x20, 0xFFFFFFUL, %d};\n" % int(hight*1.25))
+
+    pass
+
+
+def read_char(c,font,size):
+
+    if size == 24:
+        arraySize = 72
+        BytePerline = 3
+        pass
+    if size == 15:
+        arraySize = 30
+        BytePerline = 2
+        pass
+
+    offset = 0
     hi = int(c[0].encode('hex'),16)
     lo = int(c[1].encode('hex'),16)
-    
+
     if lo>=161:
         serCode = (hi - 161) * 157 + lo - 161 + 1 + 63 
     else:
         serCode = (hi - 161) * 157 + lo - 64 + 1 
-
     if serCode >= 472 & serCode < 5872:
         offset = (serCode - 472) * arraySize
     elif serCode >= 6281 & serCode <= 13973:
         offset = (serCode - 6281) * arraySize + 5401 * arraySize
-
-    #print offset
-
-    font.seek(offset)
-
-    for x in xrange(1,24):
-        line = font.read(3)
-        data = int(line .encode('hex'),16)
-        #print bin(data)[2:].zfill(24)
         pass
+    if debug:
+        font.seek(offset)
+        for x in xrange(0,size):
+            line = font.read(BytePerline)
+            data = int(line .encode('hex'),16)
+            print bin(data)[2:].zfill(BytePerline*8)
+            pass
+
     font.seek(offset)
-    for x in xrange(0,72):
+    for x in xrange(0,arraySize):
         data = int(font.read(1).encode('hex'),16)
         font_output.write(hex(data)+', ')
     font_output.write('\n')
+    
+
+parser = OptionParser(usage="python %prog [options]")
+parser.add_option("-s", action="store_true",dest="Small", help="Small Font")
+parser.add_option("-p", action="store_true",dest="debug", help="print Font")
+
+(opt, args) = parser.parse_args()
+debug = opt.debug
+size = 24
+if opt.Small:
+    size = 15
+    pass
 
 
 print "Reading dict words"
@@ -331,6 +409,7 @@ print_hash_function(g,V)
 
 test = []
 for x in open('discrete.txt', "rt").readlines():
-	test.append(x.decode('utf-8').encode('big5'))
-	pass
-font_to_code(test)
+    test.append(x.strip('\n').strip('\r').decode('utf-8').encode('big5'))
+    pass
+
+font_to_code(test,size)
