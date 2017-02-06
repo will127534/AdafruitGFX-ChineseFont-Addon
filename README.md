@@ -38,8 +38,9 @@ http://iswsa.acm.org/mphf/mphf.py
   display.println("ABCD晴天ABCD");
   display.write("ABCD晴天ABCD\n");
   display.refresh();
-```
-
+```  
+然後大概長這樣:   
+![alt tag](picture.jpg)
 ## Change list
 
 2017-02-05 增加了16x15 與 8x15的字形，修復println與print的bug  
