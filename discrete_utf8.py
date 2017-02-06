@@ -7,9 +7,12 @@ data = f.readlines()
 discrete_char_set = []
 
 for line in data:
-	print line
+	#print line
 	charlist = line.strip('\n').decode('utf-8')
 	for char in charlist:
+		if ord(char)<128:
+			continue
+			pass
 		if not char in discrete_char_set:
 			discrete_char_set.append(char)
 			pass
