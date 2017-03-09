@@ -21,8 +21,13 @@ def printASCII(c):
             data = int(line.encode('hex'),16)
             print bin(data)[2:].zfill(BytePerline*8) +"    " + str(data)#[:-4]
         pass
+        font.seek(x*arraySize)
 
-
+        for y in xrange(0,arraySize):
+            line = font.read(1)
+            data = int(line.encode('hex'),16)
+            print (hex(data))
+        
 
 def read_char(c):
     

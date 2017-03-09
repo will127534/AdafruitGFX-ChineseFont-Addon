@@ -413,3 +413,20 @@ for x in open('discrete.txt', "rt").readlines():
 
 font_to_code(test,size)
 
+#fast verification for few (key,value) count given by num1
+'''
+num1 = line
+
+print "Verifying hash values for the first %d words"% (num1)
+
+
+for key in open('discrete.txt', "rt").readlines():
+
+    line = lookup( g, V, key.strip() )
+
+    print "Word %s occurs on line %d" % (key.strip(), line)
+
+    line += 1
+
+    if line > num1: break
+    '''
