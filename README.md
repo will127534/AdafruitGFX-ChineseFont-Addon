@@ -40,7 +40,7 @@ http://iswsa.acm.org/mphf/mphf.py
        display.write(i);
    }
    display.println();
-   display.println("多雲時陰局部陣雨或雷雨有霧陰時多雲短暫陣雨或雷雨");
+   display.println("多雲時陰陣雨或雷雨有霧陰時多雲短暫陣雨或雷雨");
    display.print("臺北ABCabc\nABCDEFG");
    display.println("臺中\n臺南");
    display.refresh();

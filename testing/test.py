@@ -1,15 +1,15 @@
 # coding=Big5
 
 
-font = open('font/ascfntkc.15','rb')
+font = open('../font/ascfntkc.24','rb')
 
 
 
 def printASCII(c):
 
-    arraySize = 15
-    BytePerline = 1
-    size = 15
+    arraySize = 48
+    BytePerline = 2
+    size = 24
     x =  int(c[0].encode('hex'),16)
     x = 223 
     for x in xrange(0x0,0xFF):
@@ -19,7 +19,7 @@ def printASCII(c):
         for y in xrange(0,size):
             line = font.read(BytePerline)
             data = int(line.encode('hex'),16)
-            print bin(data)[2:].zfill(BytePerline*8)#[:-4]
+            print bin(data)[2:].zfill(BytePerline*8) +"    " + str(data)#[:-4]
         pass
 
 
