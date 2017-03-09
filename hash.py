@@ -15,7 +15,6 @@ def hash( d, str ):
     # Use the FNV-1a hash
 
     for c in str:
-
         #h = (h ^ p[i]) * 16777619
         #d = ( (d * 0x01000193) ^ ord(c) ) & 0xffffffff;
         d = d ^ int(c.encode('hex'),16) * 16777619 & 0xffffffff

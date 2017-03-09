@@ -1,4 +1,79 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿晴天 clear 1
+多雲 partly cloudy 2
+陰天 cloudy 3
+陰有霧 cloudy with fog 3
+陰有雨 rainy 4
+陰陣雨 cloudy with showers 4
+多雲時陰 mostly cloudy 5
+陰時多雲 mostly cloudy 6
+多雲時晴 partly clear 7
+晴時多雲 mostly clear 8
+多雲時陰有雨 mostly cloudy with rain 12
+多雲短暫雨 partly cloudy with occasional rain 12
+多雲時陰短暫雨 mostly cloudy with occasional rain 12
+多雲局部雨 partly cloudy with local rain 12
+多雲時陰局部雨 mostly cloudy with local rain 12
+陣雨 showers 12
+多雲時陰陣雨 mostly cloudy with showers 12
+多雲短暫陣雨 partly cloudy with occasional showers 12
+多雲時陰短暫陣雨 mostly cloudy with occasional showers 12
+多雲局部陣雨 partly cloudy with local showers 12
+多雲時陰局部陣雨 mostly cloudy with local showers 12
+多雲午後短暫陣雨 partly cloudy with occasional afternoon showers 13
+多雲時陰陣雨或雷雨 mostly cloudy with showers or thunderstorms 17
+多雲短暫陣雨或雷雨 partly cloudy with occasional showers or thunderstorms 17
+多雲時陰短暫陣雨或雷雨 mostly cloudy with occasional showers or thunderstorms 17
+多雲局部陣雨或雷雨 partly cloudy with local showers or thunderstorms 17
+多雲時陰局部陣雨或雷雨 mostly cloudy with local showers or thunderstorms 17
+多雲午後短暫雷陣雨 partly cloudy with occasional afternoon thundershowers 18
+晴午後短暫陣雨 clear with occasional afternoon showers 24
+陰時多雲有雨 mostly cloudy with rain 26
+陰時多雲短暫雨 mostly cloudy with occasional rain 26
+陰短暫雨 cloudy with occasional rain 26
+高溫低溫
+陰時多雲局部雨 mostly cloudy with local rain 26
+陰局部雨 cloudy with local rain 26
+陰時多雲陣雨 mostly cloudy with showers 26
+陰時多雲短暫陣雨 mostly cloudy with occasional showers 26
+陰短暫陣雨 cloudy with occasional showers 26
+陰時多雲局部陣雨 mostly cloudy with local showers 26
+中文描述 英文描述 分類代碼
+陰局部陣雨 cloudy with local showers 26
+陰陣雨或雷雨 cloudy with showers or thunderstorms 31
+晴午後短暫雷陣雨 clear with occasional afternoon thundershowers 34
+陰時多雲陣雨或雷雨 mostly cloudy with showers or thunderstorms 36
+陰時多雲短暫陣雨或雷雨 mostly cloudy with occasional showers or thunderstorms 36
+陰短暫陣雨或雷雨 cloudy with occasional showers or thunderstorms 36
+陰時多雲局部陣雨或雷雨 mostly cloudy with local showers or thunderstorms 36
+陰局部陣雨或雷雨 cloudy with local showers or thunderstorms 36
+晴有霧 clear with fog 43
+多雲有霧 partly cloudy with fog 44
+多雲時陰有霧 mostly cloudy with fog 44
+陰時多雲有霧 mostly cloudy with fog 44
+多雲時晴有霧 partly clear with fog 45
+晴時多雲有霧 mostly clear with fog 46
+多雲局部雨有霧 partly cloudy with local rain and fog 49
+多雲時陰局部雨有霧 mostly cloudy with local rain and fog 49
+多雲局部陣雨有霧 partly cloudy with local showers and fog 49
+多雲時陰局部陣雨有霧 mostly cloudy with local showers and fog 49
+陰時多雲局部雨有霧 mostly cloudy with local rain and fog 57
+陰局部雨有霧 cloudy with local rain and fog 57
+陰時多雲局部陣雨有霧 mostly cloudy with local showers and fog 57
+陰局部陣雨有霧 cloudy with local showers and fog 57
+多雲局部陣雨或雷雨有霧 partly cloudy with local showers or thunderstorms and fog 58
+多雲時陰局部陣雨或雷雨有霧 mostly cloudy with local showers or thunderstorms and fog 58
+陰時多雲局部陣雨或雷雨有霧 mostly cloudy with local showers or thunderstorms and fog 59
+陰局部陣雨或雷雨有霧 cloudy with local showers or thunderstorms and fog 59
+多雲時陰有雨或雪 mostly cloudy with rain or snow 60
+陰時多雲有雨或雪 mostly cloudy with rain or snow 60
+陰有雨或雪 cloudy with rain or snow 60
+多雲短暫雨或雪 partly cloudy with occasional rain or snow 60
+多雲時陰短暫雨或雪 mostly cloudy with occasional rain or snow 60
+陰時多雲短暫雨或雪 mostly cloudy with occasional rain or snow 60
+陰短暫雨或雪 cloudy with occasional rain or snow 60
+
+
+<?xml version="1.0" encoding="UTF-8"?>
 
 -<cwbopendata xmlns="urn:cwb:gov:tw:cwbcommon:0.1">
 

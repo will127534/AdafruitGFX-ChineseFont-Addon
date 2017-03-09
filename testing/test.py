@@ -1,10 +1,26 @@
 # coding=Big5
 
 
-font = open('stdfont.15f','rb')
+font = open('font/ascfntkc.15','rb')
 
 
 
+def printASCII(c):
+
+    arraySize = 15
+    BytePerline = 1
+    size = 15
+    x =  int(c[0].encode('hex'),16)
+    x = 223 
+    for x in xrange(0x0,0xFF):
+        print x
+        font.seek(x*arraySize)
+      
+        for y in xrange(0,size):
+            line = font.read(BytePerline)
+            data = int(line.encode('hex'),16)
+            print bin(data)[2:].zfill(BytePerline*8)#[:-4]
+        pass
 
 
 
@@ -23,6 +39,7 @@ def read_char(c):
         halfwidth = 1
         arraySize = 2*24
         print "ASCII GET"
+        return printASCII(c)
 
     if lo>=161:
             serCode = (hi - 161) * 157 + lo - 161 + 1 + 63 

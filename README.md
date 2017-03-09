@@ -31,13 +31,19 @@ http://iswsa.acm.org/mphf/mphf.py
 ```c 
   #include <Fonts/userfont.h>
   display.begin();
-  display.setFont(&user_fontGFXfont);  //setup font
-  display.set_lookup(lookup);          //setup font hash function
-  
-  display.println("晴天");
-  display.println("ABCD晴天ABCD");
-  display.write("ABCD晴天ABCD\n");
-  display.refresh();
+  display.clearDisplay();
+  display.setFont(&user_fontGFXfon);
+  display.set_lookup(lookup);
+  display.setTextColor(BLACK);
+
+   for(int i=0x20; i<0x7F; i++){
+       display.write(i);
+   }
+   display.println();
+   display.println("多雲時陰局部陣雨或雷雨有霧陰時多雲短暫陣雨或雷雨");
+   display.print("臺北ABCabc\nABCDEFG");
+   display.println("臺中\n臺南");
+   display.refresh();
 ```  
 然後大概長這樣:   
 ![alt tag](picture.jpg)
